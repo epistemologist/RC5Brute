@@ -8,8 +8,8 @@ using namespace std;
 
 // RC5 parameters
 #define w 32 // word size
-#define r  // number of rounds
-#define b 2 // key size
+#define r 16 // number of rounds
+#define b 16 // key size
 
 // Some type definitions for various integer sizes
 // Note that instead of defining a BLOCK as two words, we pack them into one type
@@ -128,7 +128,7 @@ int main() {
         0x0C, 0x0D, 0x0E, 0x0F
     };
     RC5 cipher(K);
-    BLOCK pt = 0x0001020304050607L;
+    BLOCK pt = 0x1111111111111111L;
     BLOCK ct = cipher.encrypt_block(pt);
     printf("%lX\n", ct);
 }
