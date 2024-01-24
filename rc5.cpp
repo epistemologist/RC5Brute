@@ -3,6 +3,7 @@
 #include<cinttypes>
 #include<array>
 #include<vector>
+#include<cassert>
 
 using namespace std;
 
@@ -68,23 +69,15 @@ class RC5 {
 
         RC5(KEY K) {
             this->key_expansion(K);
-            cout << "finished key expansion" << endl;
-            for (int i = 0; i < t; i++) {
-                printf("%.2X,", S[i]);
-            }
-            cout << endl;
         }
-        
-        inline void key_expansion(KEY K) {
+
+        void key_expansion(KEY K) {
             int i, j, k, u = w/8;
             WORD A, B, L[c] = {0};
-            for(i = b-1, L[c-1] = 0; i != -1; i--) {
-                cout << i << "," << i/u << endl;
+
+			for(i = b-1, L[c-1] = 0; i != -1; i--) {
                 L[i/u] = ROTL(L[i/u], 8) + K[i];
             }
-            for (int l = 0; l < c; l++) {
-            }
-            printf("\n");
             for(S[0] = P, i = 1; i < t; i++) {
                 S[i] = S[i-1] + Q;
             }
@@ -95,20 +88,18 @@ class RC5 {
             }
         }
 
-        inline BLOCK encrypt_block(BLOCK pt) {
+        BLOCK encrypt_block(BLOCK pt) {
             pt = SWAP_ENDIAN_BLOCK(pt);
             WORD A = GET_A(pt), B = GET_B(pt);
             A += S[0]; B += S[1];
-            printf("initial A = %.04X, B = %.04X\n", A, B);
             for (int i = 1; i <= r; i++) {
                 A = ROTL(A^B, B) + S[2*i];
                 B = ROTL(B^A, A) + S[2*i+1];
-                printf("i = %d; A = %.04X; B = %.04X\n", i, A, B);
             }
             return SWAP_ENDIAN_BLOCK(CREATE_BLOCK(A,B));
         }
 
-        inline BLOCK decrypt_block(BLOCK ct) {
+        BLOCK decrypt_block(BLOCK ct) {
             ct = SWAP_ENDIAN_BLOCK(ct);
             WORD A = GET_A(ct), B = GET_B(ct);
             for (int i = r; i > 0; i--) {
@@ -120,21 +111,16 @@ class RC5 {
         }
 };
 
-int main() {
-    // Key: 0x F0 43 F1 81 31
-    KEY K = {
-        0xF0,
-        0x43,
-        0xF1,
-        0x81,
-        0x31
-    };
-    RC5 cipher(K);
-    BLOCK C1 = 0x1235136478d3da08;
-    BLOCK IV = 0x8a162f69e83798bc;    
-    BLOCK P1 = 0x54686520756e6b6e;
-    BLOCK expected_pt = P1 ^ IV;
-    BLOCK actual_pt = cipher.decrypt_block(C1);
-    cout << expected_pt << endl;
-    cout << actual_pt << endl;
+void sanity_test() {
+	// From RSA Labs Test Pseudo Secret-Key Contests
+	assert( w == 32 && r == 12 && b == 5 );
+
+	BLOCK P = 0x54686520756e6b6eL;
+	BLOCK IV = 0xf675171a59b7ead0L;
+	BLOCK C = 0xb40a5388b13882adL;
+
+	KEY K = {0x27, 0xd8, 0x6d, 0xd2, 0x43};
+	RC5 cipher(K);
+	assert( ( P ^ IV ) == cipher.decrypt_block(C) );
 }
+
