@@ -90,6 +90,6 @@ Remove all of the temporary files created, and it should find the key.
 $$2^{40} \text{ keys} \times 
 \frac{2000 \text{ instructions}}{\text{ key}} \times
 \frac{1 \text{ second}}{ 2.8 \cdot 10^9 \text{ instructions} / \text{ core} } \times
-\frac{1}{8 \text{ cores}}
+\frac{1}{8 \text{ cores}} \times \frac{1 \text{ hour}}{ 3600 \text{ seconds}} = \boxed{} 
 $$
 
