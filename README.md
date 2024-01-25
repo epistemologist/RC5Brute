@@ -56,7 +56,7 @@ for a in $(seq 0 $NUM_CORES 256); do
 done
 ```
 
-and let run for about a week...
+and let run for about a day...
 ```
 # many lines removed...
 [+] b1: 253, progress: 4270000000/4294967295
@@ -80,3 +80,9 @@ real    1045m15.383s
 user    7252m11.766s
 sys     1m22.594s
 ```
+
+Remove all of the temporary files created, and it should find the key.
+
+### Discussion
+ - the encryption of each block takes approximately 2000 instructions with the vast majority being executed during key expansion ([link to instruction counts with callgrind](https://gist.github.com/epistemologist/d778888f4776b0b0ce075f75c1bb9dbe))
+ - therefore, with an i7-7700HQ CPU @ 2.80GHz, we have as a first order approximation that a full search of the keyspace should take $ 2^{40} \text{keys} \times \frac{1000 \text{instructions }}{ \text{ decryption }} $
