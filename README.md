@@ -90,6 +90,9 @@ Remove all of the temporary files created, and it should find the key.
 $$2^{40} \text{ keys} \times 
 \frac{2000 \text{ instructions}}{\text{ key}} \times
 \frac{1 \text{ second}}{ 2.8 \cdot 10^9 \text{ instructions} / \text{ core} } \times
-\frac{1}{8 \text{ cores}} \times \frac{1 \text{ hour}}{ 3600 \text{ seconds}} = \boxed{} 
-$$
+\frac{1}{8 \text{ cores}} \times \frac{1 \text{ hour}}{ 3600 \text{ seconds}} \approx \boxed{27 \text{ hours} } 
+$$ 
 
+(for reference, the actual elaped time was approximately 17.5 hours)
+
+ - when the challenge was originally announced in 1997, [it was solved in 3.5 hours](https://web.archive.org/web/20071101101858/https://www.rsa.com/rsalabs/node.asp?id=2103) using [a network of approximately 250 machines](https://newsarchive.berkeley.edu/news/media/releases/97legacy/code.html) - assuming each of these machines used as single core, this means that the current code runs $ (17.5/8) / (3.5 / 250) \approx 150 $ times faster. 
