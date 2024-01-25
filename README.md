@@ -85,4 +85,4 @@ Remove all of the temporary files created, and it should find the key.
 
 ### Discussion
  - the encryption of each block takes approximately 2000 instructions with the vast majority being executed during key expansion ([link to instruction counts with callgrind](https://gist.github.com/epistemologist/d778888f4776b0b0ce075f75c1bb9dbe))
- - therefore, with an i7-7700HQ CPU @ 2.80GHz, we have as a first order approximation that a full search of the keyspace should take $ 2^{40} \text{keys} \times \frac{1000 \text{instructions }}{ \text{ decryption }} $
+ - therefore, with an i7-7700HQ CPU @ 2.80GHz, we have as a first order approximation that a full search of the keyspace should take $2^{40} \text{keys} \times \frac{1000 \text{instructions }}{ \text{ decryption }}$
