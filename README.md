@@ -90,4 +90,4 @@ Remove all of the temporary files created, and it should find the key.
 $$2^{40} \; \text{keys} \times 
 \frac{ 1000 \; \text{instructions}  }{\text{decryption}} \times
 \frac{ 1 second }{  2.8 \cdot 10^{9} \text{instructions} } \times 
-$
+$$
